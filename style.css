@@ -1,0 +1,67 @@
+ @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+        
+        body {
+            background-color: white;
+            color: black;
+            font-family: Outfit, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.5s ease;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+        }
+        
+        .background-controls {
+            margin-bottom: 30px;
+        }
+        
+        .drawing-controls {
+            margin-bottom: 30px;
+        }
+        
+        button {
+            background-color: aliceblue;
+            border: 2px solid #007acc;
+            border-radius: 25px;
+            color: black;
+            padding: 12px 25px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: Outfit, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #e6f3ff;
+            transform: translateY(-2px);
+        }
+        
+        button.active {
+            background-color: #007acc;
+            color: white;
+        }
+        
+        #drawingCanvas {
+            border: 3px solid #333;
+            border-radius: 10px;
+            background: white;
+            cursor: crosshair;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        #drawingCanvas.eraser {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="16" height="12" x="4" y="6" fill="pink" stroke="black" stroke-width="2" rx="2"/></svg>') 12 12, auto;
+        }
+        
+        .status {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 15px 0;
+            color: #007acc;
+        }

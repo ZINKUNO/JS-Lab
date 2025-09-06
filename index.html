@@ -3,12 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dynamic Web Page</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>built in function and methods</h1>
-    <script src="5.js">
-
-    </script>
+    <h1>Simple Drawing App</h1>
+    <div class="background-controls">
+        <h3>Change Background:</h3>
+        <button onclick="changeColor('lightblue')">Blue</button>
+        <button onclick="changeColor('lightgreen')">Green</button>
+        <button onclick="changeColor('pink')">Pink</button>
+        <button onclick="changeColor('orange')">Orange</button>
+        <button onclick="changeColor('lavender')">Purple</button>
+        <button onclick="changeColor('lightyellow')">Yellow</button>
+        <button onclick="changeColor('white')">White</button>
+    </div>
+    <div class="drawing-controls">
+        <h3>Drawing Tools:</h3>
+        <button id="drawBtn" onclick="setTool('draw')" class="active">Draw</button>
+        <button id="eraseBtn" onclick="setTool('erase')">Erase</button>
+        <button onclick="clearCanvas()">Clear All</button>
+    </div>
+    
+    <div class="status" id="status">
+        Drawing Mode - Click and drag to draw!
+    </div>
+    <canvas id="drawingCanvas" width="700" height="400"></canvas>
+    
+    <p style="margin-top: 20px; color: #666;">
+        Click and drag on the canvas to draw. Use the erase button to remove parts of your drawing.
+    </p>
+    <script src="7.js"></script>
 </body>
-</html>
+</html>     

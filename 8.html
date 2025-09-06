@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript, IFRAME & jQuery Demo</title>
+    <!-- Include jQuery from a CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2 {
+            color: #0056b3;
+        }
+        button {
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript, IFRAME & jQuery Demo</h1>
+
+    <h2>JavaScript Loops & Events</h2>
+    <p>Click the buttons below to see JavaScript loops and event handling in action.</p>
+    <button id="forLoopBtn">Run For Loop</button>
+    <button id="whileLoopBtn">Run While Loop</button>
+    <button id="forEachBtn">Run ForEach Loop (jQuery)</button>
+    <button id="clearOutputBtn">Clear Output</button>
+
+    <div id="output">
+        <h3>Output:</h3>
+    </div>
+
+    <h2>IFRAME Interaction with jQuery</h2>
+    <p>This IFRAME loads a simple HTML page. We'll interact with it using jQuery.</p>
+    <button id="changeIframeContentBtn">Change IFRAME Content</button>
+    <button id="alertIframeContentBtn">Alert IFRAME Content</button>
+
+    <!-- The IFRAME element -->
+    <iframe id="myIframe" srcdoc="
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body { font-family: 'Courier New', monospace; background-color: #e6f7ff; padding: 10px; }
+                h4 { color: #007bff; }
+                p { color: #555; }
+            </style>
+        </head>
+        <body>
+            <h4>Hello from inside the IFRAME!</h4>
+            <p id='iframeParagraph'>This is the original content of the IFRAME.</p>
+            <button id='iframeButton'>Click Me (inside IFRAME)</button>
+            <script>
+                document.getElementById('iframeButton').addEventListener('click', function() {
+                    alert('You clicked the button inside the IFRAME!');
+                });
+            </script>
+        </body>
+        </html>
+    "></iframe>
+
+    <script>
+        // Use jQuery's document ready function to ensure the DOM is fully loaded
+        $(document).ready(function() {
+            const outputDiv = $('#output');
+
+            // --- JavaScript Loops ---
+
+            // For Loop Button Event
+            $('#forLoopBtn').on('click', function() {
+                outputDiv.append('<p><strong>Starting For Loop:</strong></p>');
+                for (let i = 0; i < 5; i++) {
+                    outputDiv.append(`<p>For Loop iteration: ${i}</p>`);
+                }
+                outputDiv.append('<p><strong>For Loop Finished.</strong></p>');
+            });
+
+            // While Loop Button Event
+            $('#whileLoopBtn').on('click', function() {
+                outputDiv.append('<p><strong>Starting While Loop:</strong></p>');
+                let count = 0;
+                while (count < 3) {
+                    outputDiv.append(`<p>While Loop iteration: ${count}</p>`);
+                    count++;
+                }
+                outputDiv.append('<p><strong>While Loop Finished.</strong></p>');
+            });
+
+            // ForEach Loop (using jQuery's $.each) Button Event
+            $('#forEachBtn').on('click', function() {
+                outputDiv.append('<p><strong>Starting ForEach Loop (jQuery $.each):</strong></p>');
+                const colors = ['Red', 'Green', 'Blue', 'Yellow'];
+                $.each(colors, function(index, value) {
+                    outputDiv.append(`<p>Color at index ${index}: ${value}</p>`);
+                });
+                outputDiv.append('<p><strong>ForEach Loop Finished.</strong></p>');
+
+                // Also demonstrating jQuery's .each on DOM elements
+                outputDiv.append('<p><strong>Highlighting output paragraphs with jQuery .each:</strong></p>');
+                outputDiv.find('p').each(function() {
+                    $(this).toggleClass('highlight'); // Toggle highlight class
+                });
+            });
+
+
+            // Clear Output Button Event
+            $('#clearOutputBtn').on('click', function() {
+                outputDiv.html('<h3>Output:</h3>'); // Clear everything except the title
+            });
+
+            // --- IFRAME Interaction with jQuery ---
+
+            const myIframe = $('#myIframe');
+
+            // Change IFRAME Content Button Event
+            $('#changeIframeContentBtn').on('click', function() {
+                // Accessing content inside the IFRAME using .contents()
+                const iframeBody = myIframe.contents().find('body');
+                const iframeParagraph = myIframe.contents().find('#iframeParagraph');
+
+                iframeParagraph.text('This content was changed by the parent page using jQuery!');
+                iframeBody.append('<p style="color: green;">New paragraph added from parent page!</p>');
+            });
+
+            // Alert IFRAME Content Button Event
+            $('#alertIframeContentBtn').on('click', function() {
+                // Get the text content of a specific element inside the IFRAME
+                const iframeParagraphText = myIframe.contents().find('#iframeParagraph').text();
+                alert('Content from IFRAME paragraph: ' + iframeParagraphText);
+            });
+
+            // Example of an event listener on the IFRAME itself (onload)
+            myIframe.on('load', function() {
+                console.log('IFRAME has finished loading.');
+                // You can perform actions on the iframe content once it's loaded
+                // For example, adding a class to an element inside the iframe
+                myIframe.contents().find('h4').css('text-decoration', 'underline');
+            });
+        });
+    </script>
+</body>
+</html>
