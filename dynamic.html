@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Expense Tracker</title>
+    <link rel="stylesheet" href="dynamic.css">
+</head>
+<body>
+    <h1>💰 Simple Expense Tracker</h1>
+    <p>Click a category button to log a quick expense (random amount $5-50). Watch the list grow and the bar chart update in real-time!</p>
+    
+    <div id="categories">
+        <button class="food" onclick="addExpense('Food', getRandomAmount())">🍔 Food</button>
+        <button class="transport" onclick="addExpense('Transport', getRandomAmount())">🚗 Transport</button>
+        <button class="entertainment" onclick="addExpense('Entertainment', getRandomAmount())">🎥 Entertainment</button>
+        <button class="other" onclick="addExpense('Other', getRandomAmount())">📦 Other</button>
+    </div>
+    
+    <canvas id="chart" width="600" height="300"></canvas>
+    
+    <div id="summary">
+        <h3>Expense Summary</h3>
+        <div id="expenses-list"></div>
+        <p id="total">Total Spent: $0</p>
+    </div>
+
+    <script src="dynamic.js"></script>
+</body>
+</html>
