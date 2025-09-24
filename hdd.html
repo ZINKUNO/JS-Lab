@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #todoForm { margin-bottom: 20px; }
+        #todoList { list-style: none; padding: 0; }
+        .todoItem { 
+            display: flex; align-items: center; margin: 10px 0; padding: 10px; 
+            border: 1px solid #ddd; border-radius: 4px; 
+        }
+        .todoItem input[type="checkbox"] { margin-right: 10px; }
+        .todoItem.completed { text-decoration: line-through; opacity: 0.6; }
+        .todoItem button { margin-left: 10px; background: #ff4444; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+        .todoItem button:hover { background: #cc0000; }
+        #stats { font-weight: bold; margin: 10px 0; }
+        #helpFrame { width: 100%; height: 200px; border: 1px solid #ccc; margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <div id="todoForm">
+        <input type="text" id="todoInput" placeholder="Add a new todo..." />
+        <button id="addBtn">Add Todo</button>
+    </div>
+    <ul id="todoList"></ul>
+    <div id="stats">Pending: 0 | Completed: 0</div>
+    <div id="helpSection">
+        <h3>Help Video</h3>
+        <iframe id="helpFrame" srcdoc="<h2>JS Todo Tips</h2><p>Loops build lists; events handle adds/deletes. Mark as done!</p>">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+
+    <script>
+        let todos = []; // Array to store todos
+
+        // Vanilla JS: For loop to render todo list
+        function renderTodos() {
+            const list = document.getElementById('todoList');
+            list.innerHTML = ''; // Clear previous
+            for (let i = 0; i < todos.length; i++) {
+                const li = document.createElement('li');
+                li.className = 'todoItem' + (todos[i].completed ? ' completed' : '');
+                li.innerHTML = `
+                    <input type="checkbox" ${todos[i].completed ? 'checked' : ''} onchange="toggleTodo(${i})">
+                    <span>${todos[i].text}</span>
+                    <button onclick="deleteTodo(${i})">Delete</button>
+                `;
+                list.appendChild(li);
+            }
+            updateStats();
+        }
+
+        // Event functions
+        function toggleTodo(index) {
+            todos[index].completed = !todos[index].completed;
+            renderTodos(); // Re-render after toggle
+        }
+
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            renderTodos();
+        }
+
+        function updateStats() {
+            const pending = todos.filter(t => !t.completed).length;
+            const completed = todos.length - pending;
+            document.getElementById('stats').textContent = `Pending: ${pending} | Completed: ${completed}`;
+        }
+
+        // Vanilla JS: Event listener for add button
+        document.getElementById('addBtn').addEventListener('click', function() {
+            const input = document.getElementById('todoInput');
+            if (input.value.trim()) {
+                todos.push({ text: input.value.trim(), completed: false });
+                input.value = '';
+                renderTodos();
+            }
+        });
+
+        // jQuery: Enter key event on input for adding todo
+        $('#todoInput').on('keypress', function(e) {
+            if (e.which === 13) { // Enter key
+                $('#addBtn').click();
+            }
+        });
+
+        // jQuery: Click event on stats to show/hide help iframe with animation
+        $('#stats').on('click', function() {
+            $('#helpSection').slideToggle(500); // jQuery animation
+            console.log('Help toggled!');
+        });
+
+        // Vanilla JS: IFRAME load event
+        document.getElementById('helpFrame').addEventListener('load', function() {
+            console.log('Help IFRAME loaded!');
+        });
+
+        // jQuery: Alternative IFRAME event for demo
+        $('#helpFrame').on('load', function() {
+            console.log('Help IFRAME loaded via jQuery!');
+        });
+
+        // Initial render
+        renderTodos();
+    </script>
+</body>
+</html>

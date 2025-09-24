@@ -16,4 +16,4 @@ age = 21;   // age changed from 20 to 21
 // Printing values
 console.log("Name:", name);
 console.log("Age:", age);
-console.log("Country:", country);
+console.log("Country:", country,"Arpit singh");

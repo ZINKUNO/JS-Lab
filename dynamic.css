@@ -6,12 +6,12 @@ body {
 #categories { 
     margin: 20px 0; 
 }
-button { 
+button {
     padding: 10px 15px; 
     margin: 5px; 
     border: none; 
     border-radius: 5px; 
-    cursor: pointer; 
+    cursor: pointer;
     font-weight: bold; 
 }
 .food { 
